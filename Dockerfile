@@ -2,6 +2,7 @@ FROM python:3.7-alpine
 
 ARG DOCKER_UID=1000
 ENV FLEXGET_VERSION=3.0.16
+ENV DELUGE_CLIENT_VERSION=1.8.0
 
 # Create a user to run the application
 RUN adduser -D -u ${DOCKER_UID} flexget
@@ -12,7 +13,9 @@ VOLUME /home/flexget/.flexget
 VOLUME /home/flexget/torrents
 
 # Install FlexGet
-RUN pip install FlexGet==${FLEXGET_VERSION}
+RUN pip install \
+  FlexGet==${FLEXGET_VERSION} \
+  deluge_client==${DELUGE_CLIENT_VERSION}
 
 # Add start script
 COPY start.sh /home/flexget/
